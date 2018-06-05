@@ -25,7 +25,7 @@ START_TEST (test_setBitByAddress)
     {
         int size = 100;
         int* array = (int*) malloc(size * sizeof(int));
-        void* position = (long) array + 99 * sizeof(int);
+        void* position = (long) array + 100 * sizeof(int);
 
         setBitByAddress(array, size, position, 1);
         printf("%i\n", getBitByAddress(array, size, position));

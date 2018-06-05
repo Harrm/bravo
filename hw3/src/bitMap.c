@@ -43,7 +43,7 @@ void setBitByAddress(int* array, int size, void* position, int bit)
 
     if (difference < 0 || difference >= size) {
         printf("Error: position is out of array bounds\n");
-        return -INFINITY;
+        return;
     }
 
     *(int*) position = bit;
