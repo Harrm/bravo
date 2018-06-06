@@ -9,6 +9,7 @@ START_TEST (test_setBitByNumber)
     {
         int size = 100;
         int* array = (int*) malloc(size * sizeof(int));
+        memset(array, 0, size * sizeof(int));
 
         setBitByNumber(array, size, 1, 10);
         setBitByNumber(array, size, 1, 9);
