@@ -12,24 +12,30 @@ void setBitByNumber(int* array, int size, int bit, int position)
     //
     // this function changes bit with number 'position' to the 'bit'
 
-    if (position < 0 || position >= size) {
+    int cell_number = position / (sizeof(int) * 8);
+    position %= sizeof(int) * 8;
+
+    if (cell_number < 0 || cell_number >= size) {
         printf("Error: position is out of array bounds\n");
         return;
     }
 
-    array[position] = bit;
+    array[cell_number] ^= 1 << position;
 }
 
 int getBitByNumber(int* array, int size, int position)
 {
     // this function returns position's bit from the array
 
-    if (position < 0 || position >= size) {
+    int cell_number = position / (sizeof(int) * 8);
+    position %= sizeof(int) * 8;
+
+    if (cell_number < 0 || cell_number >= size) {
         printf("Error: position is out of array bounds\n");
         return -INFINITY;
     }
 
-    return array[position];
+    return (array[cell_number] & (1 << position)) >> position;
 }
 
 void setBitByAddress(int* array, int size, void* position, int bit)
@@ -39,26 +45,26 @@ void setBitByAddress(int* array, int size, void* position, int bit)
     //
     // this function changes bit by memory address to 'bit'
 
-    int difference = (int) ((long) position - (long) array) / sizeof(int);
+    int cell_number = (int) ((long) position - (long) array) / sizeof(int);
 
-    if (difference < 0 || difference >= size) {
+    if (cell_number < 0 || cell_number >= size) {
         printf("Error: position is out of array bounds\n");
         return;
     }
 
-    *(int*) position = bit;
+    array[cell_number] ^= 1;
 }
 
 int getBitByAddress(int* array, int size, void* position)
 {
     // this function returns first bit by memory address 'position'
 
-    int difference = (int) ((long) position - (long) array) / sizeof(int);
+    int cell_number = (int) ((long) position - (long) array) / sizeof(int);
 
-    if (difference < 0 || difference >= size) {
+    if (cell_number < 0 || cell_number >= size) {
         printf("Error: position is out of array bounds\n");
         return -INFINITY;
     }
 
-    return *(int*) position;
+    return array[cell_number];
 }

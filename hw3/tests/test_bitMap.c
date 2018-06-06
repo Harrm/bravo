@@ -10,9 +10,14 @@ START_TEST (test_setBitByNumber)
         int size = 100;
         int* array = (int*) malloc(size * sizeof(int));
 
-        setBitByNumber(array, size, 1, -1);
-        printf("%i\n", getBitByNumber(array, size, -1));
-    }
+        setBitByNumber(array, size, 1, 10);
+        setBitByNumber(array, size, 1, 9);
+        setBitByAddress(array, size, array, 1);
+        setBitByNumber(array, size, 1, 8);
+        printf("%i\n", getBitByNumber(array, size, 9));
+        setBitByNumber(array, size, 0, 9);
+        printf("%i\n", getBitByNumber(array, size, 9));
+     }
 END_TEST
 
 START_TEST (test_getBitByNumber)
@@ -25,7 +30,9 @@ START_TEST (test_setBitByAddress)
     {
         int size = 100;
         int* array = (int*) malloc(size * sizeof(int));
-        void* position = (long) array + 100 * sizeof(int);
+        memset(array, 0, size * sizeof(int));
+
+        void* position = (long) array + 0 * sizeof(int);
 
         setBitByAddress(array, size, position, 1);
         printf("%i\n", getBitByAddress(array, size, position));
