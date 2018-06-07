@@ -16,8 +16,10 @@ START_TEST (test_setBitByNumber)
         setBitByAddress(array, size, array, 1);
         setBitByNumber(array, size, 1, 8);
         printf("%i\n", getBitByNumber(array, size, 9));
-        setBitByNumber(array, size, 0, 9);
+        setBitByNumber(array, size, 1, 9);
         printf("%i\n", getBitByNumber(array, size, 9));
+        printf("%i\n", getBitByNumber(array, size, 0));
+        printf("%i\n", getBitByNumber(array, size, 1));
      }
 END_TEST
 
@@ -36,6 +38,7 @@ START_TEST (test_setBitByAddress)
         void* position = (long) array + 0 * sizeof(int);
 
         setBitByAddress(array, size, position, 1);
+        setBitByAddress(array, size, position, 0);
         printf("%i\n", getBitByAddress(array, size, position));
     }
 END_TEST

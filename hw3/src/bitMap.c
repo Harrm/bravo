@@ -14,13 +14,18 @@ void setBitByNumber(int* array, int size, int bit, int position)
 
     int cell_number = position / (sizeof(int) * 8);
     position %= sizeof(int) * 8;
+    position = sizeof(int) * 8 - 2 - position;
 
     if (cell_number < 0 || cell_number >= size) {
         printf("Error: position is out of array bounds\n");
         return;
     }
 
-    array[cell_number] ^= 1 << position;
+    if (bit) {
+        array[cell_number] |= 1 << position;
+    } else {
+        array[cell_number] &= ~(1 << position);
+    }
 }
 
 int getBitByNumber(int* array, int size, int position)
@@ -29,6 +34,7 @@ int getBitByNumber(int* array, int size, int position)
 
     int cell_number = position / (sizeof(int) * 8);
     position %= sizeof(int) * 8;
+    position = sizeof(int) * 8 - 2 - position;
 
     if (cell_number < 0 || cell_number >= size) {
         printf("Error: position is out of array bounds\n");
@@ -52,7 +58,13 @@ void setBitByAddress(int* array, int size, void* position, int bit)
         return;
     }
 
-    array[cell_number] ^= 1;
+
+
+    if (bit) {
+        array[cell_number] |= 1 << (sizeof(int) * 8 - 2);
+    } else {
+        array[cell_number] &= ~(1 << (sizeof(int) * 8 - 2));
+    }
 }
 
 int getBitByAddress(int* array, int size, void* position)
@@ -66,5 +78,5 @@ int getBitByAddress(int* array, int size, void* position)
         return -INFINITY;
     }
 
-    return array[cell_number];
+    return (array[cell_number] & (1 << (sizeof(int) * 8 - 2))) >> (sizeof(int) * 8 - 2);
 }
